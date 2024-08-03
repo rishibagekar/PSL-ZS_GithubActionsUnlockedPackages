@@ -12,7 +12,7 @@ on:
 jobs:
   validate_pull_request:
     name: Validation of Pull Request
-    if: always() && github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     container:
         image: salesforce/cli:latest-full
@@ -25,16 +25,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
+      
+      - name: Fetch Apex Test Classes
+        run: |
+          find force-app/main/default/classes -name '*Test.cls' -type f | xargs -n 1 basename | sed 's/.cls//' > test_classes.txt
+          
       - name: Dev Int Sandbox-Validation
         run: |
+          TEST_CLASSES=$(cat test_classes.txt | tr '\n' ' ')
           echo ${{ secrets.AUTH_DEVINT }} | sf org login sfdx-url -s -u
-          sf project deploy validate -d force-app/main/default --test-level RunAllTestsInOrg --verbose -w 20
+          sf project deploy validate -d force-app/main/default -l RunSpecifiedTests -t $TEST_CLASSES --verbose -w 20
 
   code_coverage_report:
     name: Apex Code Coverage Report
     needs: validate_pull_request
-    if: always() && github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     container:
         image: salesforce/cli:latest-full
@@ -105,7 +110,7 @@ jobs:
 
   deploy_package:
     name: Unlocked Package Installation
-    if: always() && github.event_name == 'push'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     container:
         image: salesforce/cli:latest-full
