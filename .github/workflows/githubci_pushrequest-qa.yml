@@ -1,0 +1,40 @@
+name: Push Request Workflow for Unlocked Package Deployment - QA
+on:
+  push:
+    branches: [ qa ]
+    paths:
+      - 'force-app/main/default/**'
+
+jobs:
+  deploy_package:
+    name: Unlocked Package Installation
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    container:
+        image: salesforce/cli:latest-full
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: QA Sandbox-Package Install
+        run: |
+          echo ${{ secrets.AUTH_PROD }} | sf org login sfdx-url -d -u
+          sf package version create -x -p "PackageTest" -w 60 -b qa --code-coverage
+          echo "Package Version Creation Successfull"
+          new_version_id=$(grep -o "04t[[:alnum:]]\{15\}" sfdx-project.json | tail -n1)
+          test $(sf package version report -p $new_version_id --json | jq .result.HasPassedCodeCoverageCheck) = 'true'
+          echo "Apex Code Coverage Check Successfull"
+          echo ${{ secrets.AUTH_QA }} | sf org login sfdx-url -s -u
+          sf package install -p $new_version_id -w 10 -b 10
+          echo "Package Version Installation on QA Successfull"
+
+      - name: Store new Package version Id
+        run: |
+          git config user.name "release[bot]"
+          git config user.email "<>"
+          git add sfdx-project.json
+          git commit -m "Updating new pre-release version"
+          git push
