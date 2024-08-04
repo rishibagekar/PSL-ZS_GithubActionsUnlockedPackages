@@ -1,4 +1,4 @@
-name: Push Request Workflow for Unlocked Package Deployment - Devint
+name: Push Request Workflow for Unlocked Package Deployment - DevInt
 on:
   push:
     branches: [ devint ]
@@ -22,7 +22,7 @@ jobs:
       - name: Dev Int Sandbox-Package Install
         run: |
           echo ${{ secrets.AUTH_PROD }} | sf org login sfdx-url -d -u
-          sf package version create -x -p "PackageTest" -w 60 -b devint --code-coverage
+          sf package version create -x -p "MyFirstApplication" -w 60 -b devint --code-coverage
           echo "Package Version Creation Successfull"
           new_version_id=$(grep -o "04t[[:alnum:]]\{15\}" sfdx-project.json | tail -n1)
           test $(sf package version report -p $new_version_id --json | jq .result.HasPassedCodeCoverageCheck) = 'true'
