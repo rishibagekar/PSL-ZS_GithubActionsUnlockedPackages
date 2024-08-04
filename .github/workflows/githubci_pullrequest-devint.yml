@@ -1,4 +1,4 @@
-name: Pull Request Workflow for Unlocked Package Deployment - Devint
+name: Pull Request Workflow for Unlocked Package Deployment - DevInt
 on:
   pull_request:
     branches: [ develop ]
