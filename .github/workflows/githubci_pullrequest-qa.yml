@@ -25,7 +25,7 @@ jobs:
       - name: Fetch Apex Test Classes
         id: find-test-classes
         run: |
-          find cmd-loader/main/default/classes -name '*Test.cls' -type f | xargs -n 1 basename | sed 's/.cls//' > test_classes.txt
+          find force-app/main/default/classes -name '*Test.cls' -type f | xargs -n 1 basename | sed 's/.cls//' > test_classes.txt
 
       - name: QA Sandbox-Validation
         run: |
