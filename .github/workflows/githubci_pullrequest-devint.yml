@@ -1,7 +1,7 @@
 name: Pull Request Workflow for Unlocked Package Deployment - DevInt
 on:
   pull_request:
-    branches: [ develop ]
+    branches: [ devint ]
     paths:
       - 'force-app/main/default/**'
 
