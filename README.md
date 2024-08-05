@@ -1,18 +1,25 @@
-# Salesforce DX Project: Next Steps
+# SonarCloud Badge
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=rishibagekar_PSL-ZS_GithubActionsUnlockedPackages)](https://sonarcloud.io/summary/new_code?id=rishibagekar_PSL-ZS_GithubActionsUnlockedPackages)
 
-## How Do You Plan to Deploy Your Changes?
+# Installation of Unlocked Packages on SF environments
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+# Installation Options
+<a>
+  <img alt="Deploy to Salesforce"
+  src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
 
-## Configure Your Salesforce DX Project
+## URL
+- [Production/Developer](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tao0000000000000)
+- [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tao0000000000000)
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+Unlocked Packages can be installed by clicking on above mentioned url depending upon the type of Salesforce Environment you own
 
-## Read All About It
+## CLI
+sf package install --package 04tao0000000000000 --targetusername YOUR_ORG_ALIAS --wait 10 --publishwait 10
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Unlocked Packages can be installed by running the above mentioned SF command using the CLI
+
+## Manual 
+You can install this by cloning the repository and deploying the content of force-app folder. Before that you should remove the _namespace property in the _sfdx-project.json_ file if present any.
