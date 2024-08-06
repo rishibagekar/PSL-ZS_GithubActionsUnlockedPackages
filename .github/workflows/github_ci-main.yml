@@ -154,8 +154,8 @@ jobs:
       - name: Store new Package Version Id details
         run: |
           sed -i -e "s/04t[[:alnum:]]\{15\}/${version_id}/" README.md
-          git config user.name "rishibagekar"
-          git config user.email "rishikeshbagekar25@gmail.com"
+          git config user.name "release[bot]"
+          git config user.email "<>"
           git add README.md
           git add sfdx-project.json
           git commit -m "Updating new pre-release version"
