@@ -144,7 +144,7 @@ jobs:
           new_version_id=$(grep -o "04t[[:alnum:]]\{15\}" sfdx-project.json | tail -n1)
           test $(sf package version report -p $new_version_id --json | jq .result.HasPassedCodeCoverageCheck) = 'true'
           echo "Apex Code Coverage Check Successfull"
-          echo ${{ secrets.AUTH_PROD }} | sf org login sfdx-url -s -u
+          echo ${{ secrets.AUTH_PROD }} | sf org login sfdx-url -d -u
           sf package version promote -p $new_version_id -n
           echo "Package Version Promotion Successfull"
           echo ${{ secrets.AUTH_PROD }} | sf org login sfdx-url -s -u
