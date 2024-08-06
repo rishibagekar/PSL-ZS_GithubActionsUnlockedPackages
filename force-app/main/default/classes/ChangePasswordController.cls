@@ -1,5 +1,5 @@
 /**
- * An apex page controller that exposes the change password functionality testing part
+ * An apex page controller that exposes the change password functionality testing part 2
  */
 public with sharing class ChangePasswordController {
     public String oldPassword {get; set;}
