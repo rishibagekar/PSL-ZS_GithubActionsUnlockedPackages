@@ -116,8 +116,6 @@ jobs:
     name: Unlocked Package Installation
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    container:
-        image: salesforce/cli:latest-full
 
     steps:
       - name: Checkout Code
@@ -125,9 +123,19 @@ jobs:
         with:
           fetch-depth: 0
           
-      - name: Install Git
-        run: apt-get install git
+      - name: Install Node JS
+        uses: actions/setup-node@v4
+        with:
+            node-version: 20
 
+      - name: Install SFDX CLI
+        run: |
+          npm install @salesforce/cli --global
+
+      - name: Install jq
+        run: |
+          sudo apt-get install jq
+          
       - name: QA Sandbox-Package Install
         run: |
           echo ${{ secrets.AUTH_PROD }} | sf org login sfdx-url -d -u
