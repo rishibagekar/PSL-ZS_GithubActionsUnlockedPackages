@@ -11,13 +11,13 @@
 </a>
 
 ## URL
-- [Production/Developer](https://login.salesforce.com/packaging/installPackage.apexp?p0=)
-- [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=)
+- [Production/Developer](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tao000000jsQrAAI)
+- [Sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tao000000jsQrAAI)
 
 Unlocked Packages can be installed by clicking on above mentioned url depending upon the type of Salesforce Environment you own
 
 ## CLI
-sf package install --package  --targetusername YOUR_ORG_ALIAS --wait 10 --publishwait 10
+sf package install --package "04tao000000jsQrAAI" --targetusername YOUR_ORG_ALIAS --wait 10 --publishwait 10
 
 Unlocked Packages can be installed by running the above mentioned SF command using the CLI
 
