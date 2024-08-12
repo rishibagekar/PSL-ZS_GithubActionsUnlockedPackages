@@ -37,7 +37,15 @@ jobs:
         run: |
           TEST_CLASSES=$(cat test_classes.txt | tr '\n' ' ')
           echo ${{ secrets.AUTH_DEVINT }} | sf org login sfdx-url -s -u
-          sf project deploy validate -d force-app/main/default -l RunSpecifiedTests -t $TEST_CLASSES --verbose -w 20
+          #!/bin/bash
+          if [ "$TEST_CLASSES" = "" ]; then
+            sf project deploy validate -d force-app/main/default -o cicdScratch --verbose -w 30
+            echo "Inside IF"
+          else
+            sf project deploy validate -d force-app/main/default -o cicdScratch -l RunSpecifiedTests -t $TEST_CLASSES --verbose -w 30
+            echo "Inside ELSE"
+          fi
+          echo "Validation on CICD Scratch Org succeeded"
 
   code_coverage_report:
     name: Apex Code Coverage Report
